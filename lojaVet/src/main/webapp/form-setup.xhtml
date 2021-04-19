@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+	<p:messages><p:autoUpdate/></p:messages>
+		<h:form>
+			<p:card class="card-form">
+
+				<f:facet name="title">Cadastro Usuario</f:facet>
+
+
+				<h:panelGrid columns="2">
+
+					<p:outputLabel value="Name" for="name" />
+					<p:inputText id="name" value="#{setupBean.setup.name}" required = "true"/>
+					
+					<p:outputLabel value="Data Nascimento" for="date" />
+					<p:inputText id="date" value="#{setupBean.setup.date}" required = "true"/>
+				
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" value="#{setupBean.setup.email}" required = "true"/>
+
+					<p:outputLabel value="Descricao do cargo" for="description" />
+					<p:inputTextarea id="description" value="#{setupBean.setup.description}"
+					
+					validatorMessage="tamanho do campo deve estar entre 4 e 255">
+					
+					<f:validateLength maximum ="255" minimum="4" />
+					</p:inputTextarea>
+					
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" value="#{setupBean.setup.senha}"/>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.salvar}" />
+					<p:commandButton icon="pi pi-times" value="Cancel"
+						styleClass="ui-button-secondary" style="margin-left: .5em" />
+				</f:facet>
+			</p:card>
+		</h:form>
+		
+<div class="card">
+    <h:form id="form">
+        <p:dataTable id="setups" var="setup" value="#{setupBean.setups}" rowKey="#{setup.id}"
+                     selectionMode="single">
+            
+            <f:facet name="header">
+                SetUPS List
+            </f:facet>
+
+            <p:column headerText="Name">
+                <h:outputText value="#{setup.name}" />
+            </p:column>
+            
+            <p:column headerText="Data Nascimento">
+                <h:outputText value="#{setup.date}" />
+            </p:column>
+            
+            <p:column headerText="Email">
+                <h:outputText value="#{setup.email}" />
+            </p:column>
+            
+          
+        </p:dataTable>
+
+        <p:contextMenu for="setups">
+
+            <p:menuitem value="Delete" update="setups" icon="pi pi-times"
+                        action="#{setupBean.executar}"/>
+        </p:contextMenu>
+	
+	</h:form>
+	</div>
+	
+	
+	</ui:define>
+</ui:composition>
+
+</html>
