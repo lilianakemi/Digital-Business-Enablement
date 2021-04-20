@@ -26,10 +26,15 @@
 					</p:inputText>
 					
 					<p:outputLabel value="Data Nascimento" for="date" />
-					<p:inputText id="date" value="#{setupBean.setup.date}" required = "true"/>
+					<p:inputText id="date" value="#{setupBean.setup.date}" required = "true">
+					<f:ajax event="blur" render="messages"/>
+					</p:inputText>
+					
 				
 					<p:outputLabel value="E-mail" for="email" />
-					<p:inputText id="email" value="#{setupBean.setup.email}" required = "true"/>
+					<p:inputText id="email" value="#{setupBean.setup.email}" required = "true">
+					<f:ajax event="blur" render="messages"/>
+					</p:inputText>
 
 					<p:outputLabel value="Descricao do cargo" for="description" />
 					<p:inputTextarea id="description" value="#{setupBean.setup.description}"
@@ -45,15 +50,18 @@
 				</h:panelGrid>
 
 				<f:facet name="footer">
-					<p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.salvar}" />
+					<p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.salvar}" >
+					<f:ajax execute ="@form" render="form-setups"/> 
+					</p:commandButton>
+					
 					<p:commandButton icon="pi pi-times" value="Cancel"
 						styleClass="ui-button-secondary" style="margin-left: .5em" />
 				</f:facet>
 			</p:card>
 		</h:form>
 		
-<div class="card">
-    <h:form id="form">
+<div class="card" id="card-setup-list">
+    <h:form id="form-setups">
         <p:dataTable id="setups" var="setup" value="#{setupBean.setups}" rowKey="#{setup.id}"
                      selectionMode="single">
             
